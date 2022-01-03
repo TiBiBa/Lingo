@@ -3,5 +3,20 @@
 Lingo - Spelen
 {% endblock %}
 {% block body %}
-  <h1>Hier komt het uiteindelijke spel</h1>
+  <h1 class="text-6xl font-sans mt-16 mb-16 text-white text-center">Lingo</h1>
+  <div id="container" class="flex flex-row justify-around">
+  <div id="scoreboard">
+    <h2 class="text-2xl font-sans mb-4 text-white text-center">Dit is het scoreboard</h2>
+  </div>
+  <div id="playboard" class="text-center">
+    <h2 class="text-2xl font-sans mb-4 text-white">Dit is het playboard</h2>
+    <div class="grid grid-cols-5 gap-4">
+      {% for i in range(5) %}
+        {% for j in range(5) %}
+          <div class="border w-16 h-16 flex justify-center items-center" row="{{i}}" column="{{j}}">{{ i + j }}</div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+  </div>
 {% endblock %}
