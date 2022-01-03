@@ -7,7 +7,8 @@ LINGO = Lingo()
 
 @app.route('/')
 def hello_world():
-    return render_template("play.html")
+    LINGO = Lingo() #Automatically generate new word -> Which is always "panda" atm
+    return render_template("play.html", word=LINGO.get_current_word())
 
 
 @app.route('/setup', methods=['GET'])
@@ -49,7 +50,7 @@ def audio_retrieval():
     word = r.recognize_google(audio, language="nl-NL").lower()
     print(word)
 
-    current_word = "panda"  # Hard-code a current word for comparison, fix later on
+    current_word = LINGO.get_current_word()
 
     #Match length of word with required length
     if len(word) != body['word_length']:
@@ -67,7 +68,7 @@ def audio_retrieval():
         else:
           score.append(None)
 
-    return jsonify({'score': score}, 200)
+    return jsonify({'score': score, 'word': word}), 200
 
 
 app.jinja_env.auto_reload = True

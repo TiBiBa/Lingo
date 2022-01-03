@@ -1,3 +1,4 @@
+var attempts = 0;
 function set_teams() {
     $('#error_message').hide();
     var team1 = $('#team1').val();
@@ -29,10 +30,25 @@ function listen_word() {
         contentType: 'application/json',
         dataType: 'json'
     }).done(function (response) {
-        console.log(response);
-        $('#guessed_word').text(response.score[0]);
+        var letter_location = 0;
+        $.each(response.score, function (key, value) {
+            var location = "#letter_box[row='" + attempts + "'][column='" + letter_location + "']";
+            $(location).text(response.word[key]);
+            if (value == true) {
+                $(location).css("color", "green");
+            }
+            else if (value == false) {
+                $(location).css("color", "yellow");
+            }
+            else {
+                $(location).css("color", "red");
+            }
+            letter_location += 1;
+        });
+        attempts = attempts + 1;
     }).fail(function (response) {
         $('#word_error_text').text(response.responseText);
         $('#word_error_message').toggle();
+        return null;
     });
 }

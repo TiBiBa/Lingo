@@ -6,12 +6,12 @@ Lingo - Spelen
   <h1 class="text-6xl font-sans mt-8 mb-8 text-white text-center">Lingo</h1>
   <div id="container">
     <div id="playboard" class="text-center">
-      <div class="grid grid-cols-5 gap-4 w-1/4 mx-auto">
+      <div class="grid gap-x-0 gap-y-0 grid-cols-5 mt-8 max-w-max mx-auto">
         {% for i in range(5) %}
           {% for j in range(5) %}
-            <div class="border w-16 h-16 flex justify-center items-center" row="{{i}}" column="{{j}}">
+            <div class="w-24 h-24 flex justify-center pt-2 text-6xl bg-gray-200 border border-blue-400" id="letter_box" row={{i}} column={{j}}>
             {% if i == 0 and j == 0 %}
-              {{ startLetter }}
+              {{ word[0] }}
             {% else %}
               .
             {% endif %}
@@ -22,9 +22,9 @@ Lingo - Spelen
     </div>
   </div>
   <div class="text-center">
-    <button class="bg-blue-500 hover:bg-blue-700 text-white text-6xl font-bold mt-16 py-4 px-8 rounded-full" onclick="event.preventDefault(); listen_word();">Test</button>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white text-6xl font-bold mt-16 py-4 px-8 rounded-full" onclick="event.preventDefault(); listen_word();">Speel</button>
   </div>
-  <div id="word_error_message" class="mb-6 text-center hidden">
-    <p id="word_error_text" class="text-red-600 font-bold text-lg"></p>
+  <div id="word_error_message" class="mt-8 mb-6 text-center hidden">
+    <p id="word_error_text" class="text-red-600 text-4xl font-bold text-lg"></p>
   </div>
 {% endblock %}
