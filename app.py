@@ -7,9 +7,7 @@ LINGO = Lingo()
 
 @app.route('/')
 def hello_world():
-    LINGO.generate_word()
-    return render_template("play.html", word=LINGO.get_current_word())
-
+    return render_template("index.html")
 
 @app.route('/setup', methods=['GET'])
 def setup_game():
@@ -29,7 +27,8 @@ def setup_preferences():
 
 @app.route('/play')
 def play_game():
-    return render_template("play.html")
+    LINGO.generate_word()
+    return render_template("play.html", word=LINGO.get_current_word())
 
 
 @app.route('/listener', methods=['POST'])
