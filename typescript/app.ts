@@ -19,3 +19,22 @@ function set_teams() {
     $('#error_message').toggle();
   });
 }
+
+function listen_word() {
+  console.log("Begonnen met luisteren...");
+  $.ajax({
+    type: 'POST',
+    url: '/listener',
+    data: JSON.stringify({
+      word_length: 5
+    }),
+    contentType: 'application/json',
+    dataType: 'json'
+  }).done(function(response) {
+    console.log(response);
+    $('#guessed_word').text(response.score[0]);
+  }).fail(function(response) {
+    $('#word_error_text').text(response.responseText);
+    $('#word_error_message').toggle();
+  });
+}

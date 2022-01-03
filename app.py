@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, jsonify
+import speech_recognition as sr
+from lingo import Lingo
 
 app = Flask(__name__)
-
+LINGO = Lingo()
 
 @app.route('/')
 def hello_world():
-    return render_template("index.html")
+    return render_template("play.html")
 
 
 @app.route('/setup', methods=['GET'])
@@ -27,6 +29,45 @@ def setup_preferences():
 @app.route('/play')
 def play_game():
     return render_template("play.html")
+
+
+@app.route('/listener', methods=['POST'])
+def audio_retrieval():
+    print("We komen aan in de back-end...")
+    body = request.json
+    if 'word_length' not in body:
+        return 'Geef een wordlengte door', 400
+
+    r = sr.Recognizer()
+    mic = sr.Microphone()
+
+    #Retrieve the word
+    with mic as source:
+        r.pause_threshold = 0.5
+        r.energy_threshold = 50
+        audio = r.listen(source)
+    word = r.recognize_google(audio, language="nl-NL").lower()
+    print(word)
+
+    current_word = "panda"  # Hard-code a current word for comparison, fix later on
+
+    #Match length of word with required length
+    if len(word) != body['word_length']:
+        return 'Woord heeft de verkeerde lengte', 400
+
+    if word[0] != current_word[0]:
+        return 'Woord moet met dezelfde letter beginnen', 400
+
+    score = []
+    for i in range(len(current_word)):
+        if current_word[i] == word[i]:
+          score.append(True)
+        elif word[i] in current_word:
+          score.append(False)
+        else:
+          score.append(None)
+
+    return jsonify({'score': score}, 200)
 
 
 app.jinja_env.auto_reload = True
