@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
 
 
 @app.route('/')
@@ -9,14 +8,9 @@ def hello_world():
     return render_template("index.html")
 
 
-@app.route('/login', methods=['GET'])
-def login_page():
-    return render_template("login.html")
-
-
-@app.route('/login', methods=['POST'])
-def login():
-    return "Dit doet nog even niks..."
+@app.route('/setup')
+def setup_game():
+    return render_template("setup_game.html")
 
 
 @app.route('/play')
@@ -24,5 +18,6 @@ def play_game():
     return render_template("play.html")
 
 
-if __name__ == '__main__':
-    app.run()
+app.jinja_env.auto_reload = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.run(debug=True)
