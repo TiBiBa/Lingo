@@ -3,7 +3,8 @@
 Lingo - Homepage
 {% endblock %}
 {% block body %}
-  <div id="general_settings">
+  <!-- We might need this in the future -->
+  <div id="general_settings" class="hidden">
     <h1 class="text-4xl mt-16 mb-4 text-white text-center">Instellingen</h1>
     <div id="start_form" class="w-1/4 mx-auto">
       <form class="bg-white shadow-md rounded px-8 pt-6 pb-4">
@@ -13,10 +14,10 @@ Lingo - Homepage
       </form>
     </div>
   </div>
-  <div id="setup_teams" class="hidden">
+  <div id="setup_teams">
     <h1 class="text-4xl mt-16 mb-4 text-white text-center">Teams</h1>
     <div id="start_form" class="w-1/4 mx-auto">
-      <form class="bg-white shadow-md rounded px-8 pt-6 pb-4">
+      <form class="bg-white shadow-md rounded px-8 pt-6 pb-4" onsubmit="event.preventDefault(); set_teams();">
         <div class="mb-6">
           <label for="team1" class="form-label inline-block font-bold text-2xl mb-1">Team 1</label>
           <input id="team1" class="form-control block w-full px-3 py-1.5 text-gray-700 border border-solid border-gray-300 rounded" name="team1" type="text" placeholder="Teamnaam..." required>
