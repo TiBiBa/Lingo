@@ -1,5 +1,8 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, render_template
+
 app = Flask(__name__)
+app.config['DEBUG'] = True
+
 
 @app.route('/')
 def hello_world():
