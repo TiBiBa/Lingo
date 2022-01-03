@@ -7,7 +7,7 @@ LINGO = Lingo()
 
 @app.route('/')
 def hello_world():
-    LINGO = Lingo() #Automatically generate new word -> Which is always "panda" atm
+    LINGO.generate_word()
     return render_template("play.html", word=LINGO.get_current_word())
 
 
@@ -51,6 +51,7 @@ def audio_retrieval():
     print(word)
 
     current_word = LINGO.get_current_word()
+    print(current_word)
 
     #Match length of word with required length
     if len(word) != body['word_length']:
@@ -60,13 +61,17 @@ def audio_retrieval():
         return 'Woord moet met dezelfde letter beginnen', 400
 
     score = []
+    claimed_locations = []
+
     for i in range(len(current_word)):
         if current_word[i] == word[i]:
-          score.append(True)
-        elif word[i] in current_word:
-          score.append(False)
+            claimed_locations.append(i)
+            score.append(True)
+        elif word[i] in current_word and current_word.index(word[i]) not in claimed_locations:
+            claimed_locations.append(i)
+            score.append(False)
         else:
-          score.append(None)
+            score.append(None)
 
     return jsonify({'score': score, 'word': word}), 200
 

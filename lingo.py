@@ -4,7 +4,7 @@ import random
 
 class Lingo:
     def __init__(self):
-        file = open("static/lingo.txt", "r")
+        file = open("static/words.txt", "r")
         self.words = file.read().splitlines()
         self.current_letter = random.choice(string.ascii_letters).lower()
         self.current_word = random.choice(self.words)
@@ -20,7 +20,7 @@ class Lingo:
         self.current_letter = None
 
     def generate_word(self):
-        self.current_word = "panda" #Will have to write some library for this
+        self.current_word = random.choice(self.words)
         return self.current_word
 
     def get_current_word(self):
