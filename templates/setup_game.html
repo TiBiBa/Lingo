@@ -15,7 +15,7 @@ Lingo - Homepage
     <h1 class="text-4xl mt-8 mb-4 text-white text-center">Kies twee teamnamen</h1>
     <div id="start_form" class="w-1/4 mx-auto">
       <form class="bg-white rounded-lg px-8 pt-6 pb-4 shadow-xl" onsubmit="event.preventDefault(); set_teams();">
-        <div class="mb-6">
+        <div class="mb-4">
           <label for="team1" class="form-label inline-block font-bold text-2xl mb-1">Team 1</label>
           <input id="team1" class="form-control block w-full px-3 py-1.5 text-gray-700 border border-solid border-gray-300 rounded" name="team1" type="text" placeholder="Teamnaam..." required>
         </div>
@@ -23,10 +23,10 @@ Lingo - Homepage
             <label for="team2" class="form-label inline-block font-bold text-2xl mb-1">Team 2</label>
             <input id="team2" class="form-control block w-full px-3 py-1.5 text-gray-700 border border-solid border-gray-300 rounded" name="team2" type="text" placeholder="Teamnaam..." required>
         </div>
-        <div class="mb-6 text-center">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white text-2xl font-bold py-2 px-4 rounded-full">Speel!</button>
+        <div class="mb-4 text-center">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white text-2xl font-bold py-2 px-4 rounded-full">Start het spel</button>
         </div>
-        <div id="error_message" class="mb-6 text-center hidden">
+        <div id="error_message" class="mb-2 text-center hidden">
             <p id="error_message_text" class="text-red-600 font-bold text-lg"></p>
         </div>
       </form>

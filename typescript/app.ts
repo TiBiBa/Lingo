@@ -22,8 +22,43 @@ function set_teams() {
   });
 }
 
+function start_countdown() {
+  console.log("Start the countdown!");
+  let progress = 0;
+  let intervalSpeed = 10;
+  let incrementSpeed = 1;
+  document.addEventListener("DOMContentLoaded", function(){
+    let bar = $('#timer');
+    let progressInterval = setInterval(function(){
+      progress -= incrementSpeed;
+      bar.width(progress + "%");
+      if(progress <= 0){
+          clearInterval(progressInterval);
+      }
+    }, intervalSpeed);
+  });
+
+}
+
+function start_game() {
+  $.ajax({
+    type: 'POST',
+    url: '/start',
+    data: JSON.stringify({
+      word_length: 5
+    }),
+    contentType: 'application/json',
+    dataType: 'json'
+  }).done(function(response) {
+    let location = "#letter_box[row='0'][column='0']";
+    $(location).text(response.word[0]);
+    start_countdown();
+  }).fail(function(response) {
+
+  });
+}
+
 function listen_word() {
-  console.log("Begonnen met luisteren...");
   $.ajax({
     type: 'POST',
     url: '/listener',

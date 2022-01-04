@@ -5,9 +5,11 @@ from lingo import Lingo
 app = Flask(__name__)
 LINGO = Lingo()
 
+
 @app.route('/')
 def hello_world():
     return render_template("index.html")
+
 
 @app.route('/setup', methods=['GET'])
 def setup_game():
@@ -19,20 +21,39 @@ def setup_preferences():
     body = request.json
     if 'team1' not in body or 'team2' not in body:
         return 'Er mist een teamnaam', 400
+    if len(body['team1']) > 40 or len(body['team2']) > 40:
+        return 'Namen mogen niet langer zijn dan 40 karakters', 400
     if body['team1'] == body['team2']:
         return 'Namen mogen niet hetzelfde zijn', 400
 
+    LINGO.set_team_names(body['team1'], body['team2'])
+
     return jsonify({}, 200)
+
+@app.route('/start', methods=['POST'])
+def start_game():
+    body = request.json
+    if 'word_length' not in body:
+      return 'We kunnen niet spelen zonder woord lengte', 400
+    return jsonify({'word': LINGO.generate_word()}), 200
+
 
 
 @app.route('/play')
 def play_game():
-    LINGO.generate_word()
-    return render_template("play.html", word=LINGO.get_current_word())
+    team_names = LINGO.get_team_names()
+    if not team_names or not team_names[0] or not team_names[1]:
+        return 'Je kunt geen spel spelen zonder teams', 404
+    team_scores = LINGO.get_team_scores()
+
+    return render_template("play.html", teams=team_names, scores=team_scores)
 
 
 @app.route('/listener', methods=['POST'])
 def audio_retrieval():
+    if not LINGO.get_current_word():
+      LINGO.generate_word()
+
     print("We komen aan in de back-end...")
     body = request.json
     if 'word_length' not in body:

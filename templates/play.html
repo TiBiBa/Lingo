@@ -3,28 +3,69 @@
 Lingo - Spelen
 {% endblock %}
 {% block body %}
-  <h1 class="text-6xl font-sans mt-8 mb-8 text-white text-center">Lingo</h1>
-  <div id="container">
-    <div id="playboard" class="text-center">
-      <div class="grid gap-x-0 gap-y-0 grid-cols-5 mt-8 max-w-max mx-auto">
+  <a href="/">
+  <div id="logo" class="mt-8 mb-4 flex flex-row justify-center items-center">
+    <div class="bg-red-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">L</div>
+    <div class="bg-blue-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">I</div>
+    <div class="bg-blue-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">N</div>
+    <div class="bg-yellow-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">G</div>
+    <div class="bg-green-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">O</div>
+  </div></a>
+  <div id="container" class="flex flex-row justify-around">
+    <div id="playboard">
+      <h1 class="text-4xl text-white text-center">Spelbord</h1>
+      <div class="grid gap-x-0 gap-y-0 grid-cols-5 mt-4 max-w-max">
         {% for i in range(5) %}
           {% for j in range(5) %}
-            <div class="w-24 h-24 flex justify-center pt-2 text-6xl bg-gray-200 border border-blue-400" id="letter_box" row={{i}} column={{j}}>
-            {% if i == 0 and j == 0 %}
-              {{ word[0] }}
-            {% else %}
-              .
-            {% endif %}
+            <div class="w-24 h-24 flex justify-center pt-4 text-6xl text-white bg-gradient-to-t rounded-lg from-blue-600 to-blue-400 shadow-xl" id="letter_box" row={{i}} column={{j}}>
+            .
             </div>
           {% endfor %}
         {% endfor %}
       </div>
     </div>
+    <div id="scoreboard" class="flex flex-col items-center">
+      <div id="logo" class="mt-8 mb-8 flex flex-row justify-center items-center">
+        <div class="bg-red-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">T</div>
+        <div class="bg-blue-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">E</div>
+        <div class="bg-blue-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">A</div>
+        <div class="bg-yellow-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">M</div>
+        <div class="bg-green-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">S</div>
+      </div>
+      <table class="table-auto">
+        <thead class="bg-gray-800 text-white">
+          <tr>
+            <th class="w-2/3 text-left py-3 px-4 uppercase font-semibold">Teamnaam</th>
+            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold">Score</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-700">
+          <tr class="bg-white">
+            <td class="w-2/3 text-left py-3 px-4">{{ teams[0] }}</td>
+            <td class="w-1/3 text-left py-3 px-4">{{ scores[0] }}</td>
+          </tr>
+          <tr class="bg-gray-100">
+            <td class="w-2/3 text-left py-3 px-4">{{ teams[1] }}</td>
+            <td class="w-1/3 text-left py-3 px-4">{{ scores[1] }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mt-8 mb-6 text-center">
+        <p id="team_turn" class="text-blue-600 text-4xl">Team 1 is aan de beurt</p>
+      </div>
+      <div id="word_error_message" class="mt-8 mb-6 text-center hidden">
+        <p id="word_error_text" class="text-red-600 text-4xl font-bold text-lg"></p>
+      </div>
+    </div>
+  </div>
+  <div class="w-1/3 mx-auto text-center mt-4 mb-4">
+    <h1 class="mb-2 text-2xl text-white">Resterende tijd</h1>
+    <div class="h-3 relative max-w-xl rounded-full overflow-hidden">
+        <div class="w-full h-full bg-gray-200 absolute"></div>
+        <div id="timer" class="h-full bg-blue-500 absolute" style="width:100%"></div>
+    </div>
   </div>
   <div class="text-center">
-    <button class="bg-blue-500 hover:bg-blue-700 text-white text-6xl font-bold mt-16 py-4 px-8 rounded-full" onclick="event.preventDefault(); listen_word();">Speel</button>
-  </div>
-  <div id="word_error_message" class="mt-8 mb-6 text-center hidden">
-    <p id="word_error_text" class="text-red-600 text-4xl font-bold text-lg"></p>
+    <button class="bg-blue-600 hover:bg-blue-500 text-white text-6xl font-bold mt-8 py-4 px-8 rounded-full" onclick="event.preventDefault(); start_game();">Start</button>
   </div>
 {% endblock %}
