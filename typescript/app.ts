@@ -1,4 +1,4 @@
-var attempts = 0
+var attempts = 0;
 
 function set_teams() {
   $('#error_message').hide();

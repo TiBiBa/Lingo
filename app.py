@@ -36,7 +36,7 @@ def start_game():
     body = request.json
     if 'word_length' not in body:
       return 'We kunnen niet spelen zonder woord lengte', 400
-    return jsonify({'word': "panda"}), 200
+    return jsonify({'word': LINGO.generate_word()}), 200
 
 
 
@@ -55,7 +55,7 @@ def audio_retrieval():
     print("We komen aan in de back-end...")
     body = request.json
     if 'word_length' not in body:
-        return 'Geef een wordlengte door', 400
+        return 'Geef een woord lengte door', 400
 
     r = sr.Recognizer()
     mic = sr.Microphone()
@@ -66,12 +66,8 @@ def audio_retrieval():
         r.energy_threshold = 50
         audio = r.listen(source)
     word = r.recognize_google(audio, language="nl-NL").lower()
-    print(word)
+    current_word = LINGO.get_current_word()
 
-    current_word = "panda"
-    print(current_word)
-
-    #Match length of word with required length
     if len(word) != body['word_length']:
         return 'Woord heeft de verkeerde lengte', 400
 
@@ -99,7 +95,6 @@ def audio_retrieval():
         else:
             score.append(None)
 
-    print(score)
     return jsonify({'score': score, 'word': word}), 200
 
 
