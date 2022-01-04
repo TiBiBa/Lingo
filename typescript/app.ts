@@ -23,8 +23,8 @@ function set_teams() {
 }
 
 function start_countdown() {
-  console.log("Start the countdown!");
-  let progress = 0;
+  console.log("Start the countdown...");
+  let progress = 100;
   let intervalSpeed = 10;
   let incrementSpeed = 1;
   document.addEventListener("DOMContentLoaded", function(){
