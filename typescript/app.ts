@@ -23,20 +23,19 @@ function set_teams() {
 }
 
 function start_countdown() {
-  console.log("Start the countdown...");
+  console.log("Start countdown");
   let progress = 100;
   let intervalSpeed = 10;
   let incrementSpeed = 1;
-  document.addEventListener("DOMContentLoaded", function(){
-    let bar = $('#timer');
-    let progressInterval = setInterval(function(){
-      progress -= incrementSpeed;
-      bar.width(progress + "%");
-      if(progress <= 0){
-          clearInterval(progressInterval);
-      }
-    }, intervalSpeed);
-  });
+  console.log("Hier komen we");
+  let bar = $('#timer');
+  let progressInterval = setInterval(function(){
+    progress -= incrementSpeed;
+    bar.width(progress + "%");
+    if(progress <= 0){
+        clearInterval(progressInterval);
+    }
+  }, intervalSpeed);
 
 }
 

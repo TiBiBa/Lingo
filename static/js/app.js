@@ -20,11 +20,12 @@ function set_teams() {
     });
 }
 function start_countdown() {
-    console.log("Start the countdown!");
+    console.log("Start countdown");
     var progress = 100;
     var intervalSpeed = 10;
     var incrementSpeed = 1;
     document.addEventListener("DOMContentLoaded", function () {
+        console.log("Hier komen we");
         var bar = $('#timer');
         var progressInterval = setInterval(function () {
             progress -= incrementSpeed;
