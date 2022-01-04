@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import speech_recognition as sr
 from lingo import Lingo
+import re
 
 app = Flask(__name__)
 LINGO = Lingo()
@@ -35,7 +36,7 @@ def start_game():
     body = request.json
     if 'word_length' not in body:
       return 'We kunnen niet spelen zonder woord lengte', 400
-    return jsonify({'word': LINGO.generate_word()}), 200
+    return jsonify({'word': "panda"}), 200
 
 
 
@@ -51,9 +52,6 @@ def play_game():
 
 @app.route('/listener', methods=['POST'])
 def audio_retrieval():
-    if not LINGO.get_current_word():
-      LINGO.generate_word()
-
     print("We komen aan in de back-end...")
     body = request.json
     if 'word_length' not in body:
@@ -64,13 +62,13 @@ def audio_retrieval():
 
     #Retrieve the word
     with mic as source:
-        r.pause_threshold = 0.5
+        r.pause_threshold = 1
         r.energy_threshold = 50
         audio = r.listen(source)
     word = r.recognize_google(audio, language="nl-NL").lower()
     print(word)
 
-    current_word = LINGO.get_current_word()
+    current_word = "panda"
     print(current_word)
 
     #Match length of word with required length
@@ -87,12 +85,21 @@ def audio_retrieval():
         if current_word[i] == word[i]:
             claimed_locations.append(i)
             score.append(True)
-        elif word[i] in current_word and current_word.index(word[i]) not in claimed_locations:
-            claimed_locations.append(i)
-            score.append(False)
+        elif word[i] in current_word:
+            wrong_place = False
+            indices = [i.start() for i in re.finditer(word[i], current_word)]
+            for location in indices:
+                if location not in claimed_locations:
+                    claimed_locations.append(location)
+                    wrong_place = True
+            if wrong_place:
+                score.append(False)
+            else:
+                score.append(None)
         else:
             score.append(None)
 
+    print(score)
     return jsonify({'score': score, 'word': word}), 200
 
 

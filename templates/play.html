@@ -5,19 +5,19 @@ Lingo - Spelen
 {% block body %}
   <a href="/">
   <div id="logo" class="mt-8 mb-4 flex flex-row justify-center items-center">
-    <div class="bg-red-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">L</div>
-    <div class="bg-blue-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">I</div>
-    <div class="bg-blue-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">N</div>
-    <div class="bg-yellow-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">G</div>
-    <div class="bg-green-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">O</div>
+    <div class="bg-gradient-to-t from-red-600 to-red-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">L</div>
+    <div class="bg-gradient-to-t from-blue-600 to-blue-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">I</div>
+    <div class="bg-gradient-to-t from-blue-600 to-blue-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">N</div>
+    <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">G</div>
+    <div class="bg-gradient-to-t from-green-600 to-green-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">O</div>
   </div></a>
   <div id="container" class="flex flex-row justify-around">
     <div id="playboard">
       <h1 class="text-4xl text-white text-center">Spelbord</h1>
-      <div class="grid gap-x-0 gap-y-0 grid-cols-5 mt-4 max-w-max">
+      <div id="letter_boxes" class="grid gap-x-0 gap-y-0 grid-cols-5 mt-4 max-w-max">
         {% for i in range(5) %}
           {% for j in range(5) %}
-            <div class="w-24 h-24 flex justify-center pt-4 text-6xl text-white bg-gradient-to-t rounded-lg from-blue-600 to-blue-400 shadow-xl" id="letter_box" row={{i}} column={{j}}>
+            <div class="letter_box w-24 h-24 flex justify-center pt-4 text-6xl text-white bg-gradient-to-t from-blue-600 to-blue-400 shadow-xl rounded-lg" row={{i}} column={{j}}>
             .
             </div>
           {% endfor %}
@@ -26,11 +26,11 @@ Lingo - Spelen
     </div>
     <div id="scoreboard" class="flex flex-col items-center">
       <div id="logo" class="mt-8 mb-8 flex flex-row justify-center items-center">
-        <div class="bg-red-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">T</div>
-        <div class="bg-blue-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">E</div>
-        <div class="bg-blue-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">A</div>
-        <div class="bg-yellow-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">M</div>
-        <div class="bg-green-600 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">S</div>
+        <div class="bg-gradient-to-t from-red-600 to-red-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">T</div>
+        <div class="bg-gradient-to-t from-blue-600 to-blue-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">E</div>
+        <div class="bg-gradient-to-t from-blue-600 to-blue-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">A</div>
+        <div class="bg-gradient-to-t from-yellow-600 to-yellow-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">M</div>
+        <div class="bg-gradient-to-t from-green-600 to-green-400 flex items-center justify-center text-white text-4xl w-16 h-16 rounded-full shadow-xl">S</div>
       </div>
       <table class="table-auto">
         <thead class="bg-gray-800 text-white">

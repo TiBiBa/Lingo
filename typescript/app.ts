@@ -31,11 +31,24 @@ function start_countdown() {
     $('#timer').animate({width: progress + '%'}, {easing: 'linear', duration: intervalSpeed});
     if(progress <= 0){
         clearInterval(progressInterval);
+        console.log("We wisselen van team...");
     }
   }, intervalSpeed);
 }
 
+function start_word() {
+  console.log("Begin met het woord!");
+  start_countdown();
+  console.log("Start met luisteren...");
+  listen_word();
+}
+
+function reset_bord() {
+  $('.letter_box').text(".");
+}
+
 function start_game() {
+  reset_bord();
   $.ajax({
     type: 'POST',
     url: '/start',
@@ -45,9 +58,9 @@ function start_game() {
     contentType: 'application/json',
     dataType: 'json'
   }).done(function(response) {
-    let location = "#letter_box[row='0'][column='0']";
+    let location = ".letter_box[row='0'][column='0']";
     $(location).text(response.word[0]);
-    start_countdown();
+    start_word();
   }).fail(function(response) {
 
   });
@@ -63,25 +76,33 @@ function listen_word() {
     contentType: 'application/json',
     dataType: 'json'
   }).done(function(response) {
-    let letter_location = 0
-    $.each(response.score, function(key, value){
-      let location = "#letter_box[row='" + attempts + "'][column='" + letter_location + "']";
-      $(location).text(response.word[key]);
-      if (value == true) {
-        $(location).css("color", "green");
-      } else if (value == false) {
-        $(location).css("color", "yellow");
-      } else {
-        $(location).css("color", "red");
-      }
-
-
-      letter_location += 1;
+    $.each(response.score, function(key: number, value){
+      let location = ".letter_box[row='" + attempts + "'][column='" + key + "']";
+      setTimeout(function () {
+        $(location).text(response.word[key]);
+        if (value == true) {
+          $(location).removeClass("from-blue-600 to-blue-400");
+          $(location).addClass("from-red-600 to-red-400");
+        }
+        else if (value == false) {
+          $(location).removeClass("from-blue-600 to-blue-400");
+          $(location).addClass("from-yellow-600 to-yellow-400");
+        }
+      }, key*200);
     });
+
     attempts = attempts + 1;
+    if (attempts < 5) {
+      listen_word();
+    } else {
+      console.log("We wisselen van team...");
+    }
   }).fail(function(response) {
     $('#word_error_text').text(response.responseText);
     $('#word_error_message').toggle();
-    return null;
+    attempts = attempts + 1;
+    if (attempts < 5) {
+      listen_word();
+    }
   });
 }
