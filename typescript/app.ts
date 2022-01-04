@@ -25,18 +25,14 @@ function set_teams() {
 function start_countdown() {
   console.log("Start countdown");
   let progress = 100;
-  let intervalSpeed = 10;
-  let incrementSpeed = 1;
-  console.log("Hier komen we");
-  let bar = $('#timer');
+  let intervalSpeed = 100;
   let progressInterval = setInterval(function(){
-    progress -= incrementSpeed;
-    bar.width(progress + "%");
+    progress -= 1;
+    $('#timer').animate({width: progress + '%'}, {easing: 'linear', duration: intervalSpeed});
     if(progress <= 0){
         clearInterval(progressInterval);
     }
   }, intervalSpeed);
-
 }
 
 function start_game() {

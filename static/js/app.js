@@ -22,19 +22,14 @@ function set_teams() {
 function start_countdown() {
     console.log("Start countdown");
     var progress = 100;
-    var intervalSpeed = 10;
-    var incrementSpeed = 1;
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log("Hier komen we");
-        var bar = $('#timer');
-        var progressInterval = setInterval(function () {
-            progress -= incrementSpeed;
-            bar.width(progress + "%");
-            if (progress <= 0) {
-                clearInterval(progressInterval);
-            }
-        }, intervalSpeed);
-    });
+    var intervalSpeed = 100;
+    var progressInterval = setInterval(function () {
+        progress -= 1;
+        $('#timer').animate({ width: progress + '%' }, { easing: 'linear', duration: intervalSpeed });
+        if (progress <= 0) {
+            clearInterval(progressInterval);
+        }
+    }, intervalSpeed);
 }
 function start_game() {
     $.ajax({
