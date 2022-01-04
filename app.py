@@ -65,7 +65,10 @@ def audio_retrieval():
         r.pause_threshold = 1
         r.energy_threshold = 50
         audio = r.listen(source)
-    word = r.recognize_google(audio, language="nl-NL").lower()
+    try:
+        word = r.recognize_google(audio, language="nl-NL").lower()
+    except:
+        return 'We hebben niks gehoord', 400
     current_word = LINGO.get_current_word()
 
     if len(word) != body['word_length']:

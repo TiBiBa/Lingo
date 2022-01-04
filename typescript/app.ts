@@ -44,6 +44,9 @@ function start_word() {
 
 function reset_bord() {
   $('.letter_box').text(".");
+  $('.letter_box').removeClass("from-red-600 to-red-400");
+  $('.letter_box').removeClass("from-yellow-600 to-yellow-400");
+  $('.letter_box').addClass("from-blue-600 to-blue-400");
 }
 
 function start_game() {
@@ -94,7 +97,8 @@ function listen_word() {
     if (attempts < 5) {
       $.each(response.score, function(key: number, value) {
         if (value == true || key == 0) {
-          let location = ".letter_box[row='" + attempts+1 + "'][column='" + key + "']";
+          let location = ".letter_box[row='" + attempts + "'][column='" + key + "']";
+          console.log(location);
           $(location).text(response.word[key]);
         }
       });
