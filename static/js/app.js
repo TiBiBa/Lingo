@@ -22,7 +22,7 @@ function set_teams() {
 function start_countdown() {
     console.log("Start countdown");
     var progress = 100;
-    var intervalSpeed = 100;
+    var intervalSpeed = 50;
     var progressInterval = setInterval(function () {
         progress -= 1;
         $('#timer').animate({ width: progress + '%' }, { easing: 'linear', duration: intervalSpeed });
@@ -33,9 +33,8 @@ function start_countdown() {
     }, intervalSpeed);
 }
 function start_word() {
-    console.log("Begin met het woord!");
+    attempts = 0;
     start_countdown();
-    console.log("Start met luisteren...");
     listen_word();
 }
 function reset_bord() {
@@ -84,6 +83,12 @@ function listen_word() {
         });
         attempts = attempts + 1;
         if (attempts < 5) {
+            $.each(response.score, function (key, value) {
+                if (value == true || key == 0) {
+                    var location_1 = ".letter_box[row='" + attempts + 1 + "'][column='" + key + "']";
+                    $(location_1).text(response.word[key]);
+                }
+            });
             listen_word();
         }
         else {

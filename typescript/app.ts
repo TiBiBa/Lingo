@@ -25,7 +25,7 @@ function set_teams() {
 function start_countdown() {
   console.log("Start countdown");
   let progress = 100;
-  let intervalSpeed = 100;
+  let intervalSpeed = 50;
   let progressInterval = setInterval(function(){
     progress -= 1;
     $('#timer').animate({width: progress + '%'}, {easing: 'linear', duration: intervalSpeed});
@@ -37,9 +37,8 @@ function start_countdown() {
 }
 
 function start_word() {
-  console.log("Begin met het woord!");
+  attempts = 0;
   start_countdown();
-  console.log("Start met luisteren...");
   listen_word();
 }
 
@@ -93,6 +92,12 @@ function listen_word() {
 
     attempts = attempts + 1;
     if (attempts < 5) {
+      $.each(response.score, function(key: number, value) {
+        if (value == true || key == 0) {
+          let location = ".letter_box[row='" + attempts+1 + "'][column='" + key + "']";
+          $(location).text(response.word[key]);
+        }
+      });
       listen_word();
     } else {
       console.log("We wisselen van team...");

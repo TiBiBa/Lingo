@@ -11,7 +11,7 @@ class Lingo:
         self.team1_name = None
         self.team2_name = None
         self.team1_score = 0
-        self.team2_score = 5
+        self.team2_score = 0
 
     def generate_word(self):
         self.current_word = random.choice(self.words)
